@@ -1,7 +1,17 @@
-// Create an infinite scrolling lazily loaded list
-
 import 'package:flutter/material.dart';
-import 'package:english_words/english_words.dart';
+
+import 'common/net/net_dio.dart';
+import 'page/animate.dart';
+import 'page/animate2.dart';
+import 'page/animate3.dart';
+import 'page/button.dart';
+import 'page/detail.dart';
+import 'page/flex.dart';
+import 'page/gsy1.dart';
+import 'page/list.dart';
+import 'page/listview.dart';
+import 'page/study1.dart';
+import 'page/study2.dart';
 
 void main() => runApp(const MyApp());
 
@@ -11,105 +21,87 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Startup Name Generator',
-      theme: ThemeData(
-        primaryColor: Colors.white,
-      ),
-      home: RandomWords(),
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter Demo',
+      routes: {
+        "ListPage": (context) => const ListPage(),
+        "Page2": (context) => ListViewPage(),
+        "DetailPage": (context) => DetailPage(),
+        "Button": (context) => ButtonPage(),
+        "Flex": (context) => FlexPage(),
+        "Animate": (context) => AnimatePage(),
+        "Animate2": (context) => Animate2Page(),
+        "Animate3": (context) => Animate3Page(),
+        "GSY1": (context) => const GSY1Page(),
+        "study": (context) =>const StudyPage(),
+        "study2": (context) =>const Study2Page()
+      },
+      home: const MyHomePage(),
     );
   }
 }
 
-class RandomWords extends StatefulWidget {
-  const RandomWords({Key? key}) : super(key: key);
+class MyHomePage extends StatefulWidget {
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  RandomWordsState createState() => RandomWordsState();
+  MyHomePageState createState() => MyHomePageState();
 }
 
-class RandomWordsState extends State<RandomWords> {
-  final List<WordPair> _suggestions = <WordPair>[];
-  final TextStyle _biggerFont = const TextStyle(fontSize: 18.0);
-  final Set<WordPair> _saved = <WordPair>{}; // 新增本行
-
+class MyHomePageState extends State<MyHomePage> {
+  var msg = "Hello World"; //msg默认文字
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Startup Name Generator'),
-        actions: <Widget>[
-          IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved),
-        ],
-      ),
-      body: _buildSuggestions(),
-    );
-  }
-
-  Widget _buildSuggestions() {
-    return ListView.builder(
-        padding: const EdgeInsets.all(16.0),
-        itemBuilder: (BuildContext context, int i) {
-          if (i.isOdd) {
-            return const Divider();
-          }
-          final int index = i ~/ 2;
-          if (index >= _suggestions.length) {
-            _suggestions.addAll(generateWordPairs().take(10));
-          }
-          return _buildRow(_suggestions[index]);
-        });
-  }
-
-  Widget _buildRow(WordPair pair) {
-    final bool alreadySaved = _saved.contains(pair);
-    return ListTile(
-      title: Text(
-        pair.asPascalCase,
-        style: _biggerFont,
-      ),
-      trailing: Icon(
-        alreadySaved ? Icons.favorite : Icons.favorite_border,
-        color: alreadySaved ? Colors.red : null,
-      ),
-      onTap: () {
-        setState(() {
-          if (alreadySaved) {
-            _saved.remove(pair);
-          } else {
-            _saved.add(pair);
-          }
-        });
-      },
-    );
-  }
-
-  void _pushSaved() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          final Iterable<ListTile> tiles = _saved.map(
-            (WordPair pair) {
-              return ListTile(
-                title: Text(
-                  pair.asPascalCase,
-                  style: _biggerFont,
-                ),
-              );
-            },
-          );
-          final List<Widget> divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
-
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Saved Suggestions'),
-            ),
-            body: ListView(children: divided),
-          );
-        },
-      ),
-    );
+        appBar: AppBar(
+          title: const Text("我是Title"),
+        ),
+        body: Center(
+            child: Column(children: <Widget>[
+              RaisedButton(
+                child: const Text("Clikc to Animate"),
+                onPressed: () {
+                  print("aassssssss");
+                  //根据命名路由做跳转
+                  // Navigator.pushNamed(context, "Animate2");
+                  DioNet dioNet = DioNet();
+                  print(dioNet.getByDio());
+                },
+              ),
+              RaisedButton(
+                child: const Text("Click to flex"),
+                onPressed: () {
+                  //根据命名路由做跳转
+                  Navigator.pushNamed(context, "Animate3");
+                  // Navigator.of(context).push(MaterialPageRoute(builder: (context){
+                  //   return const StudyPage();
+                  // }));
+                },
+              ),
+              Container(
+                  color: Colors.blue,
+                  padding: const EdgeInsets.all(30),
+                  margin: const EdgeInsets.only(left: 150, top: 0, right: 0, bottom: 0),
+                  child: const Text("Hello Container ", style: TextStyle(fontSize: 20, color: Colors.white))),
+              const Image(
+                image: NetworkImage("https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png"),
+                // image: AssetImage("assets/images/logo.png"),
+                width: 200.0,
+              ),
+              Container(
+                  color: Colors.blue,
+                  width: 300,
+                  height: 200,
+                  child: const Align(
+                    alignment: Alignment.center,
+                    child: Text("Hello Align ", style: TextStyle(fontSize: 20, color: Colors.white)),
+                  )),
+              Stack(
+                children: <Widget>[
+                  Image.network("https://www.wanandroid.com/blogimgs/42da12d8-de56-4439-b40c-eab66c227a4b.png"),
+                  Positioned(top: 20, right: 10, child: Image.asset("assets/images/logo.png", width: 200.0))
+                ],
+              )
+            ])));
   }
 }
