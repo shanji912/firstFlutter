@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
         "Page2": (context) => ListViewPage(),
         "DetailPage": (context) => DetailPage(),
         "Button": (context) => ButtonPage(),
-        "Flex": (context) => FlexPage(),
+        "Flex": (context) => FlexLayoutPage(),
         "Animate": (context) => AnimatePage(),
         "Animate2": (context) => Animate2Page(),
         "GSY1": (context) => GSY1Page()
