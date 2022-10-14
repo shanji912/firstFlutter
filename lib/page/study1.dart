@@ -29,12 +29,17 @@ class SampleAppPageState extends State<SampleAppPage> {
   final TextEditingController _unameController = TextEditingController();
   final TextEditingController _pwdController = TextEditingController();
   final GlobalKey _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _drawKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _drawKey,
       appBar: AppBar(
         title: const Text('Sample App'),
+      ),
+      endDrawer: const Drawer(
+        child: Text("hahah"),
       ),
       body: ListView(
         children: [
@@ -125,7 +130,9 @@ class SampleAppPageState extends State<SampleAppPage> {
               ElevatedButton.icon(
                 icon: const Icon(Icons.send),
                 label: const Text("发送"),
-                onPressed: () {},
+                onPressed: () {
+
+                },
               ),
               TextButton(
                 child: Text("normal"),
@@ -183,7 +190,9 @@ class SampleAppPageState extends State<SampleAppPage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => {},
+        onPressed: () => {
+        _drawKey.currentState?.openEndDrawer()
+      },
         tooltip: 'Update Text',
         child: const Icon(Icons.update),
       ),
@@ -208,7 +217,8 @@ class TextWidget extends StatelessWidget {
               fontSize: 18.0,
               height: 1.2,
               fontFamily: "Courier",
-              background: Paint()..color = Colors.yellow,
+              background: Paint()
+                ..color = Colors.yellow,
               decoration: TextDecoration.underline,
               decorationStyle: TextDecorationStyle.dashed),
         ),

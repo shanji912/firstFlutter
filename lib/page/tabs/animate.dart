@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
 
 class AnimatePage extends StatefulWidget {
-  _AnimatePage  createState()=> _AnimatePage();
+  const AnimatePage({Key? key}) : super(key: key);
+
+  @override
+  AnimateState createState() => AnimateState();
 }
 
-class _AnimatePage extends State<AnimatePage> {
-  bool _visible=true;
+class AnimateState extends State<AnimatePage> {
+  bool _visible = true;
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           title: Text("Animate Page"),
         ),
-        body:
-        Center(
+        body: Center(
           child: Column(
             children: <Widget>[
               AnimatedOpacity(
-                opacity: _visible ? 1.0:0.0,
-                duration:const Duration(milliseconds: 1000),
+                opacity: _visible ? 1.0 : 0.0,
+                duration: const Duration(milliseconds: 1000),
                 child: Image.asset("assets/images/logo.png"),
               ),
-
               RaisedButton(
                 child: const Text("显示隐藏"),
-                onPressed: (){
+                onPressed: () {
                   setState(() {
-                    _visible=!_visible;
+                    _visible = !_visible;
                   });
                 },
               ),
-
             ],
           ),
-        )
-    );
-
+        ));
   }
 }

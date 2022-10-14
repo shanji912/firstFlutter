@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 
 class Animate2Page extends StatefulWidget {
-  _Animate2Page  createState()=> _Animate2Page();
+  const Animate2Page({Key? key}) : super(key: key);
+
+  @override
+  Animate2State  createState()=> Animate2State();
 }
 
-class _Animate2Page extends State<Animate2Page>  with
+class Animate2State extends State<Animate2Page>  with
     SingleTickerProviderStateMixin {
 
   Animation<double>? animation;
   AnimationController? controller;
 
+  @override
   initState() {
     super.initState();
     controller =  AnimationController(duration:  Duration(seconds: 3), vsync: this);
@@ -28,7 +32,6 @@ class _Animate2Page extends State<Animate2Page>  with
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
         appBar: AppBar(
           title: Text("Animate Page"),

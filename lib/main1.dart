@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 import 'common/net/net_dio.dart';
-import 'page/animate.dart';
+import 'page/tabs/animate.dart';
 import 'page/animate2.dart';
-import 'page/button.dart';
+import 'page/tabs/button.dart';
 import 'page/detail.dart';
 import 'page/flex.dart';
 import 'page/gsy1.dart';
-import 'page/list.dart';
+import 'page/tabs/list.dart';
 import 'page/listview.dart';
 
 void main() => runApp(const MyApp());
